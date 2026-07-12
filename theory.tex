@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\begin{document}
+
+star map generator notes, mostly so future me remembers why the code is shaped like this.
+\bigskip
+
+\section{theory}
+
+the whole project is really just answering one question: given a star's fixed position in the sky, and my location + the current time, what part of the sky is it in \textit{right now}?
+
+so there's two coordinate systems fighting each other here.
+
+\smallskip
+\textbf{equatorial coordinates (RA/dec)} — this is how the catalog stores stars, and it's basically lat/long but for the sky. right ascension (RA) is like longitude, except measured in hours instead of degrees (0h to 24h), because old astronomers tied it to earth's 24hr rotation instead of just using 360$^\circ$ like normal people. declination (dec) is like latitude, $-90^\circ$ to $+90^\circ$. since stars are so far away, these barely change over a human lifetime — so one RA/dec pair per star works forever, which is why a catalog can just store one number and be done.
+\medskip
+
+since 24h = 360$^\circ$,
+\begin{equation}
+1^{\text{h}} = 15^\circ
+\end{equation}
+so converting RA from hours to degrees is just multiply by 15.
+
+\bigskip
+\textbf{horizontal coordinates (alt/az)} — this is what we actually want to plot. altitude = how high above the horizon (0$^\circ$ = horizon, 90$^\circ$ = straight up, negative = below horizon = not visible). azimuth = compass direction, 0$^\circ$ north, 90$^\circ$ east, etc.
+
+this is observer-dependent and time-dependent, which is the annoying part — the same star has a totally different alt/az depending on where you're standing and what time it is, because earth is spinning underneath it.
+
+\smallskip
+so the conversion RA/dec $\to$ alt/az needs: the star's RA/dec, my lat/long, and the exact time (to know the local sidereal time, i.e. what part of the sky is currently facing me). roughly it goes through an hour angle:
+\begin{equation}
+H = \text{LST} - \text{RA}
+\end{equation}
+and then some spherical trig i am absolutely not doing by hand:
+\begin{equation}
+\sin(\text{alt}) = \sin\delta\sin\phi + \cos\delta\cos\phi\cos H
+\end{equation}
+this is what \texttt{astropy}'s \texttt{AltAz} frame does for me under the hood (plus corrections for stuff like atmospheric refraction that i don't even want to think about).
+\end{document}
