@@ -39,5 +39,20 @@ and then some spherical trig i am absolutely not doing by hand:
 \begin{equation}
 \sin(\text{alt}) = \sin\delta\sin\phi + \cos\delta\cos\phi\cos H
 \end{equation}
-this is what \texttt{astropy}'s \texttt{AltAz} frame does for me under the hood (plus corrections for stuff like atmospheric refraction that i don't even want to think about).
+
+\bigskip
+\textbf{squishing the dome flat} - the result of these is a hemispehere, but a plot is flat, so
+\begin{equation}
+    \theta = \text{Az}, \qquad r = 90 - \text{alt}
+\end{equation}
+
+\bigskip
+\textbf{brightness} — (Vmag) lower number = brighter. \texttt{MAG\_LIMIT} is just "how faint will the plot plot."
+ 
+\bigskip
+\textbf{color} — comes from spectral class, which is really just surface temperature:
+\begin{equation}
+\text{O} > \text{B} > \text{A} > \text{F} > \text{G} > \text{K} > \text{M}
+\end{equation}
+hot = blue, cool = orange/red (sun is G, kind of yellow-white). only using the first letter of the spectral class string is a simplification but looks convincing enough.
 \end{document}
