@@ -68,5 +68,12 @@ alors j'essaie d'expliquer
 \item split on whitespace
 \item convert hours/min/sec into decimal hours
 \end{itemize}
+
+\smallskip
+\textbf{parsing Dec} — same thing but degrees/arcmin/arcsec, and can be -ve, then
+\begin{itemize}
+    \item grab the sign before stripping it off
+    \item reapply sign after \texttt{float()}
+\end{itemize}
  
 \end{document}
