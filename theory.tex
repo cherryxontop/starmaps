@@ -55,4 +55,18 @@ and then some spherical trig i am absolutely not doing by hand:
 \text{O} > \text{B} > \text{A} > \text{F} > \text{G} > \text{K} > \text{M}
 \end{equation}
 hot = blue, cool = orange/red (sun is G, kind of yellow-white). only using the first letter of the spectral class string is a simplification but looks convincing enough.
+
+\bigskip
+\section{code logic}
+ 
+alors j'essaie d'expliquer
+ 
+\smallskip
+\textbf{parsing RA} — the catalog gives RA as a string like \texttt{"00h 05m 09.9s"}, not a number, so
+\begin{itemize}
+\item strip the unit letters
+\item split on whitespace
+\item convert hours/min/sec into decimal hours
+\end{itemize}
+ 
 \end{document}

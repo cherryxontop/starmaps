@@ -19,16 +19,16 @@ CATALOG_PATH = "bsc5.json"
 
 # catalog
 
-# right ascension parser. data has h, m, s so we gotta remove that ugh
+# right ascension parser.
 def parse_ra(ra_str):
     """'00h 05m 09.9s' -> decimal hours"""
     h, m, s = ra_str.replace("h", "").replace("m", "").replace("s", "").split()
     return float(h) + float(m) / 60 + float(s) / 3600
 
-# declination parser. dec is like latitude but in degrees/arcminutes/arcseconds and it can be -ve = southern sky
+# declination parser
 def parse_dec(dec_star):
     """'+45° 13′ 45″' -> decimal degrees"""
-    sign = -1 if dec_star.strip().startswith("-") else 1 # grabs sign first bc float() cant handle special unicode. weak.
+    sign = -1 if dec_star.strip().startswith("-") else 1 # grabs sign first bc float() cant handle special unicode; weak.
     dec_star = dec_star.replace("+", "").replace("-", "")
     d, m, s = dec_star.replace("°", " ").replace("′", " ").replace("″", "").split()
     return sign * (float(d) + float(m) / 60 + float(s) / 3600) # sign reapplied :3
