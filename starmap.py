@@ -1,6 +1,6 @@
 import json
 from datetime import datetime, timezone
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
 from astropy.coordinates import EarthLocation, AltAz, SkyCoord
 from astropy.time import Time
@@ -8,13 +8,13 @@ import astropy.units as u
 
 # edit here
 
-LOCATION_NAME = "canberra"
-LATITIDE = "-35.2809"
-LONGTIDUE = 149.1300
-ELEVATION_M = 577
-WHEN = None # setting datetime. none = right now; datetime(2026, 7, 12, 0, 0)
-MAG_LIMIT = 5.0
-CATALOG_PATH = "bsc5.json"
+location = "vadodara"
+lat = 22.3107
+long = 73.1926
+elevation = 39
+when = None # setting datetime. none = right now; datetime(2026, 7, 12, 0, 0)
+maglimit = 5.0
+catalog = "resources/bsc5.json"
 
 
 # catalog
@@ -32,4 +32,28 @@ def parse_dec(dec_star):
     dec_star = dec_star.replace("+", "").replace("-", "")
     d, m, s = dec_star.replace("°", " ").replace("′", " ").replace("″", "").split()
     return sign * (float(d) + float(m) / 60 + float(s) / 3600) # sign reapplied :3
+
+def load_catalog(path, maglimit):
+    with open(path) as f:
+        raw = json.load(f)
+
+    stars = []
+    for entry in raw:
+        try:
+            vmag = float(entry["Vmag"])
+            if vmag > maglimit:
+                continue
+            ra_hours = parse_ra(entry["RA"])
+            dec_deg = parse_dec(entry["Dec"])
+            stars.append(
+                {
+                    "ra_deg": ra_hours * 15.0,
+                    "dec_deg": dec_deg,
+                    "vmag": vmag,
+                    "spectral": entry.get("SpectralCls", ""),
+                }
+            )
+        except (KeyError, ValueError):
+            continue
+    return stars
 
