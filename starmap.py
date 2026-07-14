@@ -8,11 +8,11 @@ import astropy.units as u
 
 # edit here
 
-location = "vadodara"
-lat = 22.3107
-long = 73.1926
-elevation = 39
-when = None # setting datetime. none = right now; datetime(2026, 7, 12, 0, 0)
+location = "cotonou"
+lat = 6.379448
+long = 2.451324
+elevation = 7
+when = datetime(2008, 3, 15, 0, 0) # setting datetime. none = right now; datetime(2026, 7, 12, 0, 0)
 maglimit = 5.0
 catalog = "resources/bsc5.json"
 
@@ -56,4 +56,3 @@ def load_catalog(path, maglimit):
         except (KeyError, ValueError):
             continue
     return stars
-
