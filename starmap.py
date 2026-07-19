@@ -65,7 +65,7 @@ def stars_to_altaz(stars, location, obstime):
     coords = SkyCoord(ra=ra, dec=dec, frame="icrs")
 
     altaz_frame = AltAz(obstime=obstime, location=location)
-    altalz = coords.transform_to(altaz_frame)
+    altaz = coords.transform_to(altaz_frame)
 
     for s, alt, az in zip(stars, altaz.alt.deg, altaz.az.deg):
         s["alt"] = alt
