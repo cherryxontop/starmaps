@@ -28,7 +28,7 @@ def parse_ra(ra_str):
 # declination parser
 def parse_dec(dec_star):
     """'+45° 13′ 45″' -> decimal degrees"""
-    sign = -1 if dec_star.strip().startswith("-") else 1 # grabs sign first bc float() cant handle special unicode; weak.
+    sign = -1 if dec_star.strip().startswith("-") else 1 # grabs sign first bc float() cant handle special unicode, fcking weak
     dec_star = dec_star.replace("+", "").replace("-", "")
     d, m, s = dec_star.replace("°", " ").replace("′", " ").replace("″", "").split()
     return sign * (float(d) + float(m) / 60 + float(s) / 3600) # sign reapplied :3
@@ -56,3 +56,29 @@ def load_catalog(path, maglimit):
         except (KeyError, ValueError):
             continue
     return stars
+
+# convert fixed star positions to whats overhead rn. so we def? ok
+
+def stars_to_altaz(stars, location, obstime):
+    ra = np.array([s["ra_deg"] for s in stars]) * u.deg
+    dec = np.array([s["dec_deg"] for s in stars]) * u.deg
+    coords = SkyCoord(ra=ra, dec=dec, frame="icrs")
+
+    altaz_frame = AltAz(obstime=obstime, location=location)
+    altalz = coords.transform_to(altaz_frame)
+
+    for s, alt, az in zip(stars, altaz.alt.deg, altaz.az.deg):
+        s["alt"] = alt
+        s["az"] = az
+    return stars
+
+#fav part, assigning colors to star luminosities heheeeheheheheh
+spectralcolors = {
+    "O": "#9bb0ff",
+    "B": "#aabfff",
+    "A": "#cad7ff",
+    "F": "#f8f7ff",
+    "G": "#fff4ea",
+    "K": "#ffd2a1",
+    "M": "#ffb56c",
+}
