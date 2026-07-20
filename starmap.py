@@ -83,7 +83,10 @@ spectralcolors = {
     "M": "#ffb56c",
 }
 
+# i just realised spectral_cls has more than just the letters :D fuck me
+
 def star_color(spectral_cls):
-
-
+    if spectral_cls:
+        return spectralcolors.get(spectral_cls[0], "#ffffff")
+    return "#ffffff"
 
