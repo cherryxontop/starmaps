@@ -82,3 +82,8 @@ spectralcolors = {
     "K": "#ffd2a1",
     "M": "#ffb56c",
 }
+
+def star_color(spectral_cls):
+
+
+
