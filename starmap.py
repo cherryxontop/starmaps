@@ -18,6 +18,7 @@ catalog = "resources/bsc5.json"
 
 
 # catalog
+# "This document contains many ambiguous unicode characters" ok shut up
 
 # right ascension parser.
 def parse_ra(ra_str):
@@ -90,3 +91,29 @@ def star_color(spectral_cls):
         return spectralcolors.get(spectral_cls[0], "#ffffff")
     return "#ffffff"
 
+
+# now we plot
+
+def plot_sky(stars, location, obstime):
+    visible = [s for s in stars if s["alt"] > 0]
+
+    fig = plt.figure(figsize=(9,9), facecolor = "#0b0c14")
+    axis = fig.add_subplot(111, projection = "polar", facecolor = "#0b0c14")
+
+    plt.tight_layout()
+    plt.show()
+    return fig
+
+def main():
+    observer_location = EarthLocation(lat=lat * u.deg, lon=long * u.deg, height=elevation * u.m)
+    obstime = Time(when) if when else Time(datetime.now(timezone.utc))
+
+    stars = load_catalog(catalog, maglimit)
+    stars = stars_to_altaz(stars, observer_location, obstime)
+    visible_count = sum(1 for s in stars if s["alt"] > 0)
+
+    fig = plot_sky(stars, location, obstime)
+
+
+if __name__ == "__main__":
+    main()
