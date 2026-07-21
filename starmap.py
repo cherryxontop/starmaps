@@ -100,6 +100,14 @@ def plot_sky(stars, location, obstime):
     fig = plt.figure(figsize=(9,9), facecolor = "#0b0c14")
     axis = fig.add_subplot(111, projection = "polar", facecolor = "#0b0c14")
 
+    theta = np.radians([s["alt"] for s in visible])
+    r = [90-s["alt"] for s in visible]
+
+    sizes = [max(1, (5 - s["vmag"])**2*2.2) for s in visible]
+    colors = [star_color(s["spectral"]) for s in visible]
+
+    axis.scatter(theta, r, s=sizes, c=colors, linewidths=0, alpha=0.95, zorder=3)
+
     plt.tight_layout()
     plt.show()
     return fig
