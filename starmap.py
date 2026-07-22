@@ -128,15 +128,19 @@ def plot_sky(stars, location, obstime):
 
     # IM SO STUPID IT WAS SUPPOSED TO BE AZ NOT ALT FUCKMEispentsolongfiguringitout
 
-    
-    
 
-
-
+    time = obstime.to_datetime(timezone=timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    axis.set_title(f"sky above {location}\n{time}",
+                   color="#6d6985",
+                   fontsize = 9)
 
     plt.tight_layout()
     plt.show()
     return fig
+
+# i think the graph looks okay. need to get output png and brainstorm on how i can make this better. lowkey i think the title towards the left and datetime towards right would look prettier. eh anyway this is a problem for tmr
+
+# 5 min since the above line and i think it looks ugly. ***CHANGE THE TEXT COLORS TO MATCH GOSH***
 
 def main():
     observer_location = EarthLocation(lat=lat * u.deg, lon=long * u.deg, height=elevation * u.m)
