@@ -118,7 +118,13 @@ def plot_sky(stars, location, obstime):
     axis.set_ylim(0, 90)
     #ew whats that
     axis.set_yticklabels([])
+    axis.set_xticks(np.radians([0, 90, 180, 270]))
+    axis.set_xticklabels(["N", "E", "S", "W"], color="#8fa3c9", fontsize=12)
+    # the grid lines are ew
+    axis.grid(color="#22273b", linewidth=0.5)
+    axis.spines["polar"].set_color("#1c2440")
 
+    # WHY IS THE GRAPH STILL WEIRD
     
 
 
