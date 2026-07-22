@@ -100,7 +100,7 @@ def plot_sky(stars, location, obstime):
     fig = plt.figure(figsize=(9,9), facecolor = "#0b0c14")
     axis = fig.add_subplot(111, projection = "polar", facecolor = "#0b0c14")
 
-    theta = np.radians([s["alt"] for s in visible])
+    theta = np.radians([s["az"] for s in visible])
     r = [90-s["alt"] for s in visible]
 
     sizes = [max(1, (5 - s["vmag"])**2*2.2) for s in visible]
@@ -125,6 +125,10 @@ def plot_sky(stars, location, obstime):
     axis.spines["polar"].set_color("#1c2440")
 
     # WHY IS THE GRAPH STILL WEIRD sihfks i'll check later i wanna doomscroll ^^
+
+    # IM SO STUPID IT WAS SUPPOSED TO BE AZ NOT ALT FUCKMEispentsolongfiguringitout
+
+    
     
 
 
