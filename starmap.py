@@ -124,7 +124,7 @@ def plot_sky(stars, location, obstime):
     axis.grid(color="#22273b", linewidth=0.5)
     axis.spines["polar"].set_color("#1c2440")
 
-    # WHY IS THE GRAPH STILL WEIRD
+    # WHY IS THE GRAPH STILL WEIRD sihfks i'll check later i wanna doomscroll ^^
     
 
 
