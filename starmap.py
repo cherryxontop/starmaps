@@ -108,6 +108,22 @@ def plot_sky(stars, location, obstime):
 
     axis.scatter(theta, r, s=sizes, c=colors, linewidths=0, alpha=0.95, zorder=3)
 
+    # graph returning weird check tmr
+
+    # ok today is the tmr and apparently matplotlibs polar plots put angle-zero on the right and increases counterclockwise by default
+
+    axis.set_theta_zero_location("N")
+    axis.set_theta_direction(1) # this sets the north at top instead of the right
+
+    axis.set_ylim(0, 90)
+    #ew whats that
+    axis.set_yticklabels([])
+
+    
+
+
+
+
     plt.tight_layout()
     plt.show()
     return fig
