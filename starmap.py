@@ -129,10 +129,11 @@ def plot_sky(stars, location, obstime):
     # IM SO STUPID IT WAS SUPPOSED TO BE AZ NOT ALT FUCKMEispentsolongfiguringitout
 
 
-    time = obstime.to_datetime(timezone=timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    axis.set_title(f"sky above {location}\n{time}",
-                   color="#6d6985",
-                   fontsize = 9)
+    time_str = obstime.to_datetime(timezone=timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    fig.text(0.08, 0.94, f"the sky above {location}",
+             color="#c9d4f0", fontsize=9, fontstyle="italic", ha="left")
+    fig.text(0.92, 0.94, time_str,
+             color="#c9d4f0", fontsize=9, fontstyle="italic", ha="right")
 
     plt.tight_layout()
     plt.show()
@@ -152,6 +153,7 @@ def main():
 
     fig = plot_sky(stars, location, obstime)
 
+# can i do timezones/
 
 if __name__ == "__main__":
     main()
